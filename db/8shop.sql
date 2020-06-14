@@ -1,112 +1,75 @@
-﻿create database newsystem;
-use newsystem;
+﻿create database eightshop;
+use eightshop;
 
-create table tbcliente(
+create table cliente(
+	cpf varchar(15),
+	nome varchar(30) not null,
+	telefone VARCHAR(11) not null,
+	endereco varchar(45) not null,
+	num VARCHAR(10) not null,
+	complemento varchar(20),
+	cep VARCHAR(9) not null,
+	email varchar(45) not null unique,
+	senha varchar(30) not null,
 
-cpf varchar(15) primary key not null unique,
-
-nome varchar(30) not null,
-
-telefone int(10) not null,
-
-endereco varchar(45) not null,
-
-num int(10) not null,
-
-complemento varchar(20),
-
-cep int(8) not null,
-
-email varchar(45) not null,
-
-senha varchar(30) not null
-
+	PRIMARY KEY(cpf)
 );
 
-create table tbloja(
-
-cnpj varchar(18) primary key not null unique,
-
-nome varchar(30) not null,
-
-telefone int(10) not null,
-
-endereco varchar(45) not null,
-
-num int(10) not null,
-
-complemento varchar(20),
-
-cep int(8) not null,
-
-email varchar(45) not null,
-
-senha varchar(30) not null
-
+create table loja(
+	cnpj varchar(18),
+	nome varchar(30) not null,
+	telefone VARCHAR(11) not null,
+	endereco varchar(45) not null,
+	num VARCHAR(10) not null,
+	complemento varchar(20),
+	cep varchar(9) not null,
+	email varchar(45) not null unique,
+	senha varchar(30) not null,
+	
+	PRIMARY KEY(cnpj)
 );
 
 create table mercadoria(
-
-codmercadoria int(16) primary key auto_increment not null,
-
-produto boolean not null,
-
-nome varchar(55) not null,
-
-preco float not null
-
-
-
-
-
+	codmercadoria int(16) auto_increment,
+	produto boolean not null,
+	nome varchar(55) not null,
+	preco float not null,
+	cnpj VARCHAR(18) NOT NULL,
+	
+	PRIMARY KEY(codmercadoria),
+	FOREIGN KEY(cnpj) REFERENCES loja(cnpj)
 );
-
-alter table mercadoria add foreign key(cnpj)
-references tbloja(cnpj);
 
 create table pedido(
-
-codpedido int(16) primary key auto_increment not null
-
-
-
+	codpedido int(16) auto_increment,
+	cpf VARCHAR(15) NOT NULL,
+	cnpj VARCHAR(15) NOT NULL,
+	
+	PRIMARY KEY(codpedido),
+	FOREIGN KEY(cnpj) REFERENCES loja(cnpj),
+	FOREIGN KEY(cpf) REFERENCES cliente(cpf)
 );
 
-alter table pedido add constraint fk_cpf foreign key (cpf) references tbcliente(cpf);
+CREATE TABLE contem(
+	codPedido INT,
+	codMerc INT,
+	qtd INT NOT NULL,
+	
+	PRIMARY KEY(codPedido, codMerc),
+    FOREIGN KEY(codPedido) REFERENCES pedido(codpedido),
+    FOREIGN KEY(codMerc) REFERENCES mercadoria(codmercadoria)
+);
 
-alter table pedido add constraint fk_cnpj foreign key(cnpj) references tbloja(cnpj);
+create table agendamento (
+	codpedido int(16) not null auto_increment,
+	cpf varchar(15) not null,
+	horario DATETIME NOT NULL,
+	
+	PRIMARY KEY(codpedido, cpf),
+	FOREIGN KEY(codpedido) REFERENCES pedido(codpedido),
+	FOREIGN KEY(cpf) REFERENCES cliente(cpf)
+);
 
-create table `newsystems`.`agendamento` (
-  
-`codpedido` int(16) not null auto_increment,
-
-`cpf` varchar(15) not null,
-  
-primary key (`codpedido`, `cpf`),
-  unique index `cpf_UNIQUE` (`cpf` ASC),
-  
-constraint `codpedido`
-    
-  foreign key (`codpedido`)
-    
-  references `newsystems`.`pedido` (`codpedido`)
-    
-  ON DELETE NO ACTION
-    
-  ON UPDATE NO ACTION,
-  
-constraint `cpf`
-    
-  foreign key (`cpf`)
-    
-  references `newsystems`.`tbcliente` (`cpf`)
-    
-  ON DELETE NO ACTION
-    
-  ON UPDATE NO ACTION)
-
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-alter table agendamento add column horario datetime not null;
-
+CREATE USER api@localhost IDENTIFIED BY 'api@eightstore';
+GRANT ALL ON eightshop.* TO api@localhost;
+CREATE SCHEMA eightshop;
