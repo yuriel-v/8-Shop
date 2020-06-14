@@ -35,6 +35,7 @@ create table mercadoria(
 	nome varchar(55) not null,
 	preco float not null,
 	cnpj VARCHAR(18) NOT NULL,
+	categoria VARCHAR(30) NOT NULL,
 	
 	PRIMARY KEY(codmercadoria),
 	FOREIGN KEY(cnpj) REFERENCES loja(cnpj)
@@ -44,6 +45,9 @@ create table pedido(
 	codpedido int(16) auto_increment,
 	cpf VARCHAR(15) NOT NULL,
 	cnpj VARCHAR(15) NOT NULL,
+	pagamento VARCHAR(20) NOT NULL,
+	pago BOOLEAN NOT NULL,
+	totalpreco FLOAT NOT NULL,
 	
 	PRIMARY KEY(codpedido),
 	FOREIGN KEY(cnpj) REFERENCES loja(cnpj),
@@ -61,13 +65,12 @@ CREATE TABLE contem(
 );
 
 create table agendamento (
-	codpedido int(16) not null auto_increment,
-	cpf varchar(15) not null,
-	horario DATETIME NOT NULL,
+	codpedido int(16),
+	horario VARCHAR(10) NOT NULL,
+	status INT NOT NULL,
 	
-	PRIMARY KEY(codpedido, cpf),
+	PRIMARY KEY(codpedido),
 	FOREIGN KEY(codpedido) REFERENCES pedido(codpedido),
-	FOREIGN KEY(cpf) REFERENCES cliente(cpf)
 );
 
 CREATE USER api@localhost IDENTIFIED BY 'api@eightstore';
