@@ -66,7 +66,7 @@ CREATE TABLE contem(
 
 create table agendamento (
 	codpedido int(16),
-	horario VARCHAR(10) NOT NULL,
+	horario VARCHAR(16) NOT NULL,
 	status INT NOT NULL,
 	
 	PRIMARY KEY(codpedido),
