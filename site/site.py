@@ -8,4 +8,24 @@ app.config["DEBUG"] = True
 def home():
     return render_template('index.html')
 
-app.run(host='0.0.0.0')
+
+@app.route('/agendamento', methods=['GET'])
+def agendamento():
+    return render_template('agendamento.html')
+
+
+@app.route('/compra', methods=['GET'])
+def compra():
+    return render_template('compra.html')
+
+
+@app.route('/lojas', methods=['GET'])
+def lojas():
+    return render_template('lojas.html')
+
+
+@app.route('/pedido', methods=['GET'])
+def pedido():
+    return render_template('pedido.html')
+
+app.run(host='0.0.0.0', port=80)

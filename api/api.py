@@ -185,8 +185,7 @@ def acompanhar_pedido():
     
     return jsonify(0)  # não ainda implementado
     # a gente decidiu, por falta de tempo, deixar essa funcionalidade de lado.
-        
-            
+
 
 """
 @app.route('/testapi', methods=['GET'])

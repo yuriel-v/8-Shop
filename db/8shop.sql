@@ -70,9 +70,78 @@ create table agendamento (
 	status INT NOT NULL,
 	
 	PRIMARY KEY(codpedido),
-	FOREIGN KEY(codpedido) REFERENCES pedido(codpedido),
+	FOREIGN KEY(codpedido) REFERENCES pedido(codpedido)
 );
 
 CREATE USER api@localhost IDENTIFIED BY 'api@eightstore';
 GRANT ALL ON eightshop.* TO api@localhost;
-CREATE SCHEMA eightshop;
+
+INSERT INTO loja(
+	cnpj,
+	nome,
+	telefone,
+	endereco,
+	num,
+	cep,
+	email,
+	senha
+) VALUES(
+	"01.234.567_0001-16",
+	"Tio Zé",
+	"2123456789",
+	"Rua da Amargura",
+	"240",
+	"20123-456",
+	"tioze42@gmail.com",
+	"z3_do_ti0"
+);
+
+INSERT INTO mercadoria(
+	produto,
+	nome,
+	preco,
+	cnpj,
+	categoria
+) VALUES(
+	TRUE,
+	"Arroz 1KG",
+	3.50,
+	"01.234.567_0001-16",
+	"alimentos"
+);
+
+INSERT INTO mercadoria(
+	produto,
+	nome,
+	preco,
+	cnpj,
+	categoria
+) VALUES(
+	TRUE,
+	"Feijão 1.5KG",
+	5.10,
+	"01.234.567_0001-16",
+	"alimentos"
+);
+
+INSERT INTO cliente(
+	cpf,
+	nome,
+	telefone,
+	endereco,
+	num,
+	complemento,
+	cep,
+	email,
+	senha
+) VALUES(
+	"258.147.369-00",
+	"Arnaldo Aguilar",
+	"21989054321",
+	"Rua Villa Lobos",
+	"35",
+	"Apt. 320",
+	"20587-147",
+	"aaguilar1000@hotmail.com",
+	"m@3$tr0"
+);
