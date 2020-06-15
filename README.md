@@ -27,6 +27,7 @@ python api.py
 
 No momento, eu, Leonardo, hospedo o site na minha própria máquina no site:```text
 http://189.60.213.246/
+http://189.60.213.246:5000  (API)
 ```
   
 Podem haver possíveis quedas de sistema, entretanto. Vou tentar hospedar o site o máximo que puder durante a próxima semana.  
